@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oficinas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <h1>Lista de Oficinas</h1>
+        <table class="table table-hover table-bordered m-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>nombre</th>
+                    <th>direccion</th>
+                    <th>numPuntosPosibles</th>
+                    <th>gerente</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <th:block th:each="oficina:${oficinas}">
+                <tr>
+                    <td th:text="${oficina.id}"></td>
+                    <td th:text="${oficina.nombre}"></td>
+                    <td th:text="${oficina.direccion}"></td>
+                    <td th:text="${oficina.numPuntosPosibles}"></td>
+                    <td th:text="${oficina.getGerente().getId()}"></td>
+                    <td>
+                        <a th:href="@{oficinas/{id}/edit(id=${oficina.id})}">
+                            Editar
+                        </a> <br>
+                        <a th:href="@{oficinas/{id}/delete(id=${oficina.id})}" onclick="return confirm('¿Estas seguro en borrar este oficina?')">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href='@{/}' class="btn btn-primary"> Volver Atras </a>
+            <a th:href='@{oficinas/new}' class="btn btn-primary"> Añadir Oficina </a>
+        </div>
+    </div>
+</body>
+</html>

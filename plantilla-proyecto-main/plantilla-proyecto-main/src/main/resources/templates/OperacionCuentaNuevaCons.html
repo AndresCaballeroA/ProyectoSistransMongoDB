@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacer Consignación</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <form action="#" th:action="@{/operacionCuentas/new/savecons}" method="post">
+        <div th:replace="~{OperacionCuentaFormCons :: OperacionCuentaFormCons(titulo='Hacer Consignación')}" class="container border border-2 w-25"></div>
+    </form>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Operacion</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <form th:action="@{'/operaciones/'+${id}+'/edit/save'}" th:object]="${Operacion}" method="post">
+    <div th:replace="~{OperacionForm :: OperacionForm(titulo='Editar Operacion', Operacion=${Operacion})}">
+    </div>
+</form>
+</body>
+</html>

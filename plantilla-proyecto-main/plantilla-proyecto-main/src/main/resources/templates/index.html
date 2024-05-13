@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BancAndes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <style>
+        h1 {
+            margin-top: 20px; /* Margen superior para el título */
+        }
+
+        .container {
+            margin-top: 20px; /* Margen superior para el contenedor principal */
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        .btn-group {
+            margin-top: 20px; /* Margen superior para los botones */
+        }
+
+        .btn-group > .btn {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1 class="center-text">BancAndes</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center">
+                <div class="btn-group">
+                    <a th:href="@{/usuarios}" class="btn btn-primary">Usuarios</a>
+                    <a th:href="@{/oficinas}" class="btn btn-primary">Oficinas</a>
+                    <a th:href="@{/puntosDeAtencion}" class="btn btn-primary">Punto de Atención</a>
+                    <a th:href="@{/clientes}" class="btn btn-primary">Clientes</a>
+                    <a th:href="@{/empleados}" class="btn btn-primary">Empleados</a>
+                    <a th:href="@{/operaciones}" class="btn btn-primary">Operaciones</a>
+                    <a th:href="@{/cuentas}" class="btn btn-primary">Cuentas</a>
+                    <a th:href="@{/operacionCuentas}" class="btn btn-primary">Operacion Cuenta</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

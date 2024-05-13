@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <h1>Lista de Clientes</h1>
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID Cliente</th>
+                    <th>ID Usuario</th>
+                    <th>Login</th>
+                    <th>Contraseña</th>
+                    <th>Tipo de Documento</th>
+                    <th>Número de Identificación</th>
+                    <th>Nombre</th>
+                    <th>Nacionalidad</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Ciudad</th>
+                    <th>Departamento</th>
+                    <th>Código Postal</th>
+                    <th>Rol</th>
+                    <th>ID Oficina</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cliente : ${clientes}">
+                    <td th:text="${cliente.id}"></td>
+                    <td th:text="${cliente.usuario.getId()}"></td>
+                    <td th:text="${cliente.usuario.getLogin()}"></td>
+                    <td th:text="${cliente.usuario.getContrasena()}"></td>
+                    <td th:text="${cliente.usuario.getTipoDocumento()}"></td>
+                    <td th:text="${cliente.usuario.getNumeroDocumento()}"></td>
+                    <td th:text="${cliente.usuario.getNombre()}"></td>
+                    <td th:text="${cliente.usuario.getNacionalidad()}"></td>
+                    <td th:text="${cliente.usuario.getDireccion()}"></td>
+                    <td th:text="${cliente.usuario.getEmail()}"></td>
+                    <td th:text="${cliente.usuario.getTelefono()}"></td>
+                    <td th:text="${cliente.usuario.getCiudad()}"></td>
+                    <td th:text="${cliente.usuario.getDepartamento()}"></td>
+                    <td th:text="${cliente.usuario.getCodigoPostal()}"></td>
+                    <td th:text="${cliente.rolCliente}"></td>
+                    <td th:text="${cliente.oficina.getId()}"></td>
+                    <td>
+                        <a th:href="@{'/clientes/' + ${cliente.id} + '/edit'}">Editar</a>
+                        <br>
+                        <a th:href="@{'/clientes/' + ${cliente.id} + '/delete'}" onclick="return confirm('¿Estás seguro en borrar este Cliente?')">Borrar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
+            <a th:href="@{/clientes/new}" class="btn btn-primary">Añadir Cliente</a>
+        </div>
+    </div>
+</body>
+</html>

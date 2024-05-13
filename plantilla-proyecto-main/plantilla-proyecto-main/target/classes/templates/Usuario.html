@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuarios</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; 
+        }
+    </style>
+</head>
+<body>
+    <div class="contenido">
+        <h1>Lista de usuarios</h1>
+        <table class="table table-hover table-bordered m-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Login</th>
+                    <th>Contraseña</th>
+                    <th>Tipo Documento</th>
+                    <th>Numero Documento</th>
+                    <th>Nombre</th>
+                    <th>Nacionalidad</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Ciudad</th>
+                    <th>Departamentos</th>
+                    <th>Codigo postal</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <th:block th:each="usuario:${usuarios}">
+                <tr> 
+                    <td th:text="${usuario.id}"></td>
+                    <td th:text="${usuario.login}"></td>
+                    <td th:text="${usuario.contrasena}"></td>
+                    <td th:text="${usuario.tipoDocumento}"></td>
+                    <td th:text="${usuario.numeroDocumento}"></td>
+                    <td th:text="${usuario.nombre}"></td>
+                    <td th:text="${usuario.nacionalidad}"></td>
+                    <td th:text="${usuario.direccion}"></td>
+                    <td th:text="${usuario.email}"></td>
+                    <td th:text="${usuario.telefono}"></td>
+                    <td th:text="${usuario.ciudad}"></td>
+                    <td th:text="${usuario.departamento}"></td>
+                    <td th:text="${usuario.codigoPostal}"></td>
+                    <td>
+                        <a th:href="@{usuarios/{id}/edit(id=${usuario.id})}">
+                            Editar
+                        </a> <br>
+                        <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}" onclick="return confirmDelete()">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href='@{/}' class="btn btn-primary"> Volver Atras </a>
+            <a th:href='@{usuarios/new}' class="btn btn-primary"> Añadir usuario </a>
+        </div>
+    </div>
+</body>
+</html>

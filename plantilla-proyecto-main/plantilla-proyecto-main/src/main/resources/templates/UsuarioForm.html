@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmento</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+    <div th:fragment="UsuarioForm(titulo)" class="container border border-2 w-25"> 
+        <h1 class="text-center">Ingresa Datos del Usuario</h1>
+        <form>
+            <label class="col-from-label">Login</label>
+            <input class="form-control" type="text" id="login"
+            name="login" required th:value="${usuario.login}"/>
+
+            <label class="col-from-label">Contraseña</label>
+            <input class="form-control" type="text" id="contrasena"
+            name="contrasena" required th:value="${usuario.contrasena}"/>
+
+            <label class="col-from-label">Tipo de documento</label>
+            <input class="form-control" type="text" id="tipoDocumento"
+            name="tipoDocumento" required th:value="${usuario.tipoDocumento}"/>
+
+            <label class="col-from-label">Numero de documento</label>
+            <input class="form-control" type="text" id="numeroDocumento"
+            name="numeroDocumento" required th:value="${usuario.numeroDocumento}"/>
+
+            <label class="col-from-label">Nombre</label>
+            <input class="form-control" type="text" id="nombre"
+            name="nombre" required th:value="${usuario.nombre}"/>
+
+            <label class="col-from-label">Nacionalidad</label>
+            <input class="form-control" type="text" id="nacionalidad"
+            name="nacionalidad" required th:value="${usuario.nacionalidad}"/>
+
+            <label class="col-from-label">Direccion</label>
+            <input class="form-control" type="text" id="direccion"
+            name="direccion" required th:value="${usuario.direccion}"/>
+
+            <label class="col-from-label">Email</label>
+            <input class="form-control" type="text" id="email"
+            name="email" required th:value="${usuario.email}"/>
+
+            <label class="col-from-label">Telefono</label>
+            <input class="form-control" type="text" id="telefono"
+            name="telefono" required th:value="${usuario.telefono}"/>
+
+            <label class="col-from-label">Ciudad</label>
+            <input class="form-control" type="text" id="ciudad"
+            name="ciudad" required th:value="${usuario.ciudad}"/>
+
+            <label class="col-from-label">Departamento</label>
+            <input class="form-control" type="text" id="departamento"
+            name="departamento" required th:value="${usuario.departamento}"/>
+
+            <label class="col-from-label">Codigo postal</label>
+            <input class="form-control" type="text" id="codigoPostal"
+            name="codigoPostal" required th:value="${usuario.codigoPostal}"/>
+
+            <div class="text-center">
+                <input type="submit" value="Guardar" class="btn btn-primary"/>
+                <a href="#" onclick="return goBack();" class="btn btn btn-primary"> Cancelar </a>
+            </div>
+            <script>
+                function goBack() {
+                    window.history.back();
+                    return false;
+                }
+            </script>
+        </form>
+    </div>
+
+</body>
+</html>

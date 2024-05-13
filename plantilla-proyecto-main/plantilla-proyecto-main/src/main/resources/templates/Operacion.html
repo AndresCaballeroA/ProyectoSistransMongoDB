@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/css/jquery.min.js}"></script>
+    <script th:src="@{/css/bootstrap.min.js}"></script>
+
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; /* Centrar todos los textos */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="contenido">
+        <h1>Lista de Operaciones</h1>
+
+<!--         
+        <p> 
+            Hay <span th:text = "${darTodasLasOperacionesPorCuenta}"> Todas las operaciones hechas en una cuenta </span></p>
+
+            <div class="container w-25">
+                <div class="card border border-2 mx-auto">
+                    <h5 class="card-header" role="button" id="headingOne"> 
+                        <a href="#" class="collapsed d-block" data-toggle="collapse" data-targed="#busqueda">
+                            Busqueda Avanzada
+                        </a>
+                    </h5>
+                    <div id="busqueda" class="collapse">
+                        <form th:action="@{bares}" method="get">
+                            <label class="col-form-label">Id De la cuenta:</label>
+                            <input class="form-control" type="text" id="idCuenta" name="idCuenta">
+                            <label class="col-form-label">Mes:</label>
+                            <input class="form-control" type="text" id="mes" name="mes">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-secondary">Buscar por cuenta y mes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>             -->
+
+
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha y hora</th>
+                    <th>Tipo de operacion</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <th:block th:each="operacion : ${operaciones}">
+            <tr>
+                <td th:text="${operacion.id}"></td>
+                <td th:text="${operacion.fechaYHora}"></td>
+                <td th:text="${operacion.tipoOperacion}"></td>
+                <td>
+                    <a th:href="@{/operaciones/{id}/edit(id=${operacion.id})}">Editar</a>
+                    <br>
+                    <a th:href="@{/operaciones/{id}/delete(id=${operacion.id})}" onclick="return confirm('¿Estás seguro de querer borrar esta operación?')">Borrar</a>
+                </td>
+            </tr>
+        </th:block>
+
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-primary">Volver Atras</a>
+            <a th:href='@{operaciones/new}' class="btn btn-primary"> Añadir Operacion </a>
+
+        </div>
+    </div>
+</body>
+</html>

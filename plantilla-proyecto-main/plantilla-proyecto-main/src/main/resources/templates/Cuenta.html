@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuentas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th,
+        td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenido">
+        <h1>Lista de cuentas</h1>
+
+        <div class="container w-25">
+            <div class="card border border-2 mx-auto">
+                <h5 class="card-header" role="button" id="headingOne">
+                    <a href="#" class="collapsed d-block" data-bs-toggle="collapse" data-bs-target="#busqueda">
+                        Búsqueda avanzada
+                    </a>
+                </h5>
+                <div id="busqueda" class="collapse">
+                    <form th:action="@{/cuentas}" method="get">
+                        <label class="col-form-label">TipoCuenta</label>
+                        <input class="form-control" type="text" id="TipoCuenta" name="TipoCuenta" />
+        
+                        <label class="col-form-label">Mínimo saldo</label>
+                        <input class="form-control" type="number" id="minSaldo" name="minSaldo" />
+        
+                        <label class="col-form-label">Máximo saldo</label>
+                        <input class="form-control" type="number" id="Maxsaldo" name="Maxsaldo" />
+                        
+                        <label class="col-form-label">fechaCreacion</label>
+                        <input class="form-control" type="text" id="fechaCreacion" name="fechaCreacion" />
+                        
+                        <label class="col-form-label">Cliente ID</label>
+                        <input class="form-control" type="text" id="cliente" name="cliente" />
+                        
+                        <!-- <label class="col-form-label">Oficinas Relacionadas</label>
+                        <select class="form-control" id="oficina" name="oficina">
+                            <option value="Si">Si</option>
+                            <option value="No" selected>No</option>
+                        </select> -->
+
+                        <br />
+        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-secondary">Buscar</button>
+                        </div> 
+        
+                        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+        
+
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>saldo</th>
+                    <th>tipo</th>
+                    <th>estado</th>
+                    <th>fechaCreacion</th>
+                    <th>id_cliente</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="cuenta: ${cuentas}">
+                    <td th:text="${cuenta.id}"></td>
+                    <td th:text="${cuenta.saldo}"></td>
+                    <td th:text="${cuenta.tipo}"></td>
+                    <td th:text="${cuenta.estado}"></td>
+                    <td th:text="${cuenta.fechaCreacion}"></td>
+                    <td th:text="${cuenta.cliente.getId()}"></td>
+                    <td>
+                        <a th:href="@{'cuentas/' + ${cuenta.id} + '/edit'}">Editar</a>
+                        <br />
+                        <a th:href="@{'cuentas/' + ${cuenta.id} + '/delete'}" onclick="return confirm('¿Estas seguro en borrar este oficina?')">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-primary">Volver Atrás</a>
+            <a th:href="@{'cuentas/new'}" class="btn btn-primary">Añadir Cuenta</a>
+            <a th:href="@{'cuentas/newest'}" class="btn btn-primary">Cambiar Estado</a>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

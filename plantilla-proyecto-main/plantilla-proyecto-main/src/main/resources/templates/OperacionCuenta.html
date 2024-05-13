@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>operacionCuentas</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; /* Centrar todos los textos */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="contenido">
+        <h1>Lista de operacionCuentas</h1>
+
+        <p>El saldo inicial es <span th:text="${saldoini}"></span><br>
+        El saldo final es <span th:text="${saldofini}"></span></p>
+
+        <div class="container w-25">
+            <div class="card border border-2 mx-auto">
+                <h5 class="card-header" role="button" id="headingOne">
+                    <a href="#" class="collapsed d-block" data-bs-toggle="collapse" data-bs-target="#busqueda">
+                        Búsqueda avanzada
+                    </a>
+                </h5>
+                <div id="busqueda" class="collapse">
+                    <form th:action="@{/operacionCuentas}" method="get">
+                        <label class="col-form-label">fechaYHora del ultimo movimiento</label>
+                        <input class="form-control" type="text" id="fechaYHora" name="fechaYHora" />
+
+                        <label class="col-form-label">Cuenta</label>
+                        <input class="form-control" type="text" id="Cuenta" name="Cuenta" />
+
+                        <label class="col-form-label">Mes</label>
+                        <input class="form-control" type="text" id="Mes" name="Mes" />
+        
+                        <br />
+        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-secondary">Extracto</button>
+                        </div>
+        
+                        <br />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <table class="table table-hover table-bordered m-4">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>numeroOrigen</th>
+                    <th>numeroDestino</th>
+                    <th>monto</th>
+                    <th>Fecha y hora</th>
+                    <th>Tipo operacion</th>
+                    <th>id_operacion</th>
+                    <th>Editar/Eliminar</th>
+                </tr>
+            </thead>
+            <th:block th:each="operacionCuenta:${operacionCuentas}">
+                <tr>
+                    <td th:text="${operacionCuenta.id}"></td>
+                    <td th:text="${operacionCuenta.numeroOrigen}"></td>
+                    <td th:text="${operacionCuenta.numeroDestino}"></td>
+                    <td th:text="${operacionCuenta.monto}"></td>
+                    <td th:text="${operacionCuenta.id_operacion.getFechaYHora()}"></td>
+                    <td th:text="${operacionCuenta.id_operacion.getTipoOperacion()}"></td>
+                    <td th:text="${operacionCuenta.id_operacion.getId()}"></td>
+                    <td>
+                        <a th:href="@{operacionCuentas/{id}/edit(id=${operacionCuenta.id})}">
+                            Editar
+                        </a> <br>
+                        <a th:href="@{operacionCuentas/{id}/delete(id=${operacionCuenta.id})}" onclick="return confirm('¿Estas seguro en borrar esta operacionCuenta?')">
+                            Eliminar
+                        </a>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div>
+            <a th:href='@{/}' class="btn btn-primary"> Volver Atras </a>
+            <a th:href='@{operacionCuentas/new}' class="btn btn-primary"> Añadir operacionCuenta </a>
+            <a th:href='@{operacionCuentas/newcons}' class="btn btn-primary"> Consignar </a>
+            <a th:href='@{operacionCuentas/newret}' class="btn btn-primary"> Retirar </a>
+            <!-- <a th:href='@{operacionCuentas/newser}' class="btn btn-primary">Serializable</a>
+            <a th:href='@{operacionCuentas/newnoser}' class="btn btn-primary">No serializable</a> -->
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

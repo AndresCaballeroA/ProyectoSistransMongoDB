@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prestamos</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <script th:src="@{/css/jquery.min.js}"></script>
+    <script th:src="@{/css/bootstrap.min.js}"></script>
+
+    <style>
+        .contenido {
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        th, td {
+            text-align: center; 
+        }
+    </style>
+
+</head>
+<body>
+    <div class="contenido">
+        <h1>Lista de Prestamos</h1>
+        <p> 
+            Hay <span th:text = "${darTodosLosPrestamosPorCuenta}"> Todos los prestamos hechos en una cuenta </span></p>
+
+            <div class="container w-25">
+                <div class="card border border-2 mx-auto">
+                    <h5 class="card-header" role="button" id="headingOne"> 
+                        <a href="#" class="collapsed d-block" data-toggle="collapse" data-targed="#busqueda">
+                            Busqueda Avanzada
+                        </a>
+                    </h5>
+                    <div id="busqueda" class="collapse">
+                        <form th:action="@{bares}" method="get">
+                            <label class="col-form-label">Id De la cuenta:</label>
+                            <input class="form-control" type="text" id="idCuenta" name="idCuenta">
+                            <label class="col-form-label">Mes:</label>
+                            <input class="form-control" type="text" id="mes" name="mes">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-secondary">Buscar por cuenta y mes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>            
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha y hora</th>
+                    <th>Tipo de prestamo</th>
+                </tr>
+            </thead>
+            <th:block th:each="prestamo : ${prestamos}">
+            <tr>
+                <td th:text="${prestamo.id}"></td>
+                <td th:text="${prestamo.fechaYHora}"></td>
+                <td th:text="${prestamo.tipoPrestamo}"></td>
+                <td>
+                    <a th:href="@{/prestamo/{id}/edit(id=${prestamo.id})}">Editar</a>
+                    <a th:href="@{/prestamo/{id}/delete(id=${prestamo.id})}" onclick="return confirm('¿Estás seguro de querer borrar este prestamo?')">Borrar</a>
+                </td>
+            </tr>
+        </th:block>
+
+        </table>
+        <div>
+            <a th:href="@{/}" class="btn btn-primary">Volver Atras</a>
+            <a th:href='@{Prestamo/new}' class="btn btn-primary"> Añadir Prestamo </a>
+
+        </div>
+    </div>
+</body>
+</html>
