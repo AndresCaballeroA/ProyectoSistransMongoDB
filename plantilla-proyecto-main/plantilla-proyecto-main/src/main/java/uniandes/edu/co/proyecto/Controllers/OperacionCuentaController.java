@@ -2,6 +2,7 @@ package uniandes.edu.co.proyecto.Controllers;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
@@ -91,60 +92,121 @@ public class OperacionCuentaController {
             String fechaFormateada = dateFormat.format(sqlDate);
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findById_operacionFechaYHora(fechaFormateada));
         } else if (!HayCuenta && !HayMes) {
+            LocalDateTime ahora = LocalDateTime.now();
+            String fechaActual = ahora.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String[] partesFechaActual = fechaActual.split("-");
+            String yearActual = partesFechaActual[0];
+            Collection<OperacionCuenta> operacionCuentas = operacionCuentaRepository.findByNumeroOrigen(numeroOrigen);
             Integer Dinero = cuentaRepository.findCuentaById(numeroOrigen.toString()).getSaldo();
+            
             SimpleDateFormat sdf = new SimpleDateFormat("MM");
             String mesSiguiente = "";
             try {
-                Date date = sdf.parse(Mes);
-                date.setMonth(date.getMonth() + 1);
-                mesSiguiente = sdf.format(date);
+            Date date = sdf.parse(Mes);
+            date.setMonth(date.getMonth() + 1);
+            mesSiguiente = sdf.format(date);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            Integer consignacionDespues = 0;
-            Integer RetirosDespues = 0;
-            Integer TransferenciasDespues = 0;
-            // if ((operacionCuentaRepository.sumConsignacionesByNumeroDestinoAndMonth(numeroOrigen, mesSiguiente) != null) || Mes != "12") {
-            // consignacionDespues = operacionCuentaRepository.sumConsignacionesByNumeroDestinoAndMonth(numeroOrigen, mesSiguiente);
-            // }
-            // if ((operacionCuentaRepository.sumRetirosByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente) != null) || Mes != "12") {
-            // RetirosDespues = operacionCuentaRepository.sumRetirosByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente);
-            // } 
-            // if ((operacionCuentaRepository.sumTransferenciasByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente) != null)) {
-            // TransferenciasDespues = operacionCuentaRepository.sumTransferenciasByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente);
-            // }
-
-            Integer consignacion = 0;
-            Integer Retiros = 0;
-            Integer Transferencias = 0;
-            if ((operacionCuentaRepository.sumConsignacionesByMonthAndNumeroDestinoTotal(mesSiguiente, numeroOrigen) != null)) {
-                consignacion = operacionCuentaRepository.sumConsignacionesByMonthAndNumeroDestinoTotal(mesSiguiente, numeroOrigen);
-            } 
-            if ((operacionCuentaRepository.sumRetirosByMonthAndNumeroOrigen(mesSiguiente, numeroOrigen) != null)) {
+            int mesInicial = Integer.parseInt(mesSiguiente);
             
-                Retiros = operacionCuentaRepository.sumRetirosByMonthAndNumeroOrigenTotal(mesSiguiente, numeroOrigen);
-            }
-            if ((operacionCuentaRepository.sumTransferenciasByMonthAndNumeroOrigen(mesSiguiente, numeroOrigen) != null)) {
-                Transferencias = operacionCuentaRepository.sumTransferenciasByMonthAndNumeroOrigenTotal(mesSiguiente, numeroOrigen);
+            for (int i = mesInicial; i <= 12; i++) {
+                String mes = String.format("%02d", i);
+                for (OperacionCuenta operacion : operacionCuentas) {
+
+                    String tipoOperacion = operacion.getId_operacion().getTipoOperacion();
+                    Integer numeroOrigenO = operacion.getNumeroOrigen();
+                    Integer numeroDestino = operacion.getNumeroDestino();
+                    String fecha = operacion.getId_operacion().getFechaYHora(); 
+                    LocalDateTime fechaHora = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    String mesOperacion = String.format("%02d", fechaHora.getMonthValue());
+                    String yearOperacion = String.valueOf(fechaHora.getYear());                    
+                    
+                    if (mesOperacion.equals(mes) && yearActual.equals(yearOperacion)) {
+                        if (tipoOperacion.equals("CONSIGNACION") && numeroDestino.equals(numeroOrigen)) {
+                            Dinero -= operacion.getMonto();
+                        } else if (tipoOperacion.equals("RETIRO") && numeroOrigenO.equals(numeroOrigen)) {
+                            Dinero += operacion.getMonto();
+                        } else if (tipoOperacion.equals("TRANSFERENCIA") && numeroOrigenO.equals(numeroOrigen) && numeroDestino != numeroOrigen) {
+                            Dinero += operacion.getMonto();
+                        }
+                    }
+                }
             }
 
-            int saldo = Dinero - consignacionDespues + RetirosDespues + TransferenciasDespues;
-            System.out.println(saldo);
-            System.out.println(Retiros);
-            System.out.println(Transferencias);
-            System.out.println(consignacion);
-            int valorInicial = saldo + Retiros + Transferencias - consignacion;
+
+            int saldo = Dinero;
+            int valorInicial = saldo;
+            if (Mes != "12") {
+                for (OperacionCuenta operacion : operacionCuentas) {
+                
+                    String tipoOperacion = operacion.getId_operacion().getTipoOperacion();
+                    Integer numeroOrigenO = operacion.getNumeroOrigen();
+                    Integer numeroDestino = operacion.getNumeroDestino();
+                    String fecha = operacion.getId_operacion().getFechaYHora(); 
+                    LocalDateTime fechaHora = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    String mesOperacion = String.format("%02d", fechaHora.getMonthValue()); 
+                    String yearOperacion = String.valueOf(fechaHora.getYear()); 
+
+                    if (mesOperacion.equals(Mes) && yearActual.equals(yearOperacion)) {
+                        if (tipoOperacion.equals("CONSIGNACION") && numeroDestino.equals(numeroOrigen)) {
+                        
+                            valorInicial -= operacion.getMonto();
+                        } else if (tipoOperacion.equals("RETIRO") && numeroOrigenO.equals(numeroOrigen)) {
+                            
+                            valorInicial += operacion.getMonto();
+                        } else if (tipoOperacion.equals("TRANSFERENCIA") && numeroOrigenO.equals(numeroOrigen) && numeroDestino != numeroOrigen) {
+                            
+                            valorInicial += operacion.getMonto();
+                        }
+                    }
+                
+                }
+            } else {
+                for (OperacionCuenta operacion : operacionCuentas) {
+                
+                    String tipoOperacion = operacion.getId_operacion().getTipoOperacion();
+                    Integer numeroOrigenO = operacion.getNumeroOrigen();
+                    Integer numeroDestino = operacion.getNumeroDestino();
+                    String fecha = operacion.getId_operacion().getFechaYHora(); 
+                    LocalDateTime fechaHora = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                    String mesOperacion = String.format("%02d", fechaHora.getMonthValue()); 
+                    String yearOperacion = String.valueOf(fechaHora.getYear()); 
+                    
+                    if (mesOperacion.equals(Mes) && yearActual.equals(yearOperacion)) {
+                        if (tipoOperacion.equals("CONSIGNACION") && numeroDestino.equals(numeroOrigen)) {
+                            saldo += operacion.getMonto();
+                        } else if (tipoOperacion.equals("RETIRO") && numeroOrigenO.equals(numeroOrigen)) {
+                            saldo -= operacion.getMonto();
+                        } else if (tipoOperacion.equals("TRANSFERENCIA") && numeroOrigenO.equals(numeroOrigen) && numeroDestino != numeroOrigen) {
+                            saldo -= operacion.getMonto();
+                        }
+                    }
+                }
+            }
+
+            Collection<OperacionCuenta> operacionesFiltradas = new ArrayList<>();
+
+
+            for (OperacionCuenta operacion : operacionCuentas) {
+                String fecha = operacion.getId_operacion().getFechaYHora(); // Suponiendo que tienes un método getId_operacion().getFechaYHora() para obtener la fecha y hora como cadena
+                LocalDateTime fechaHora = LocalDateTime.parse(fecha, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                String mesOperacion = String.format("%02d", fechaHora.getMonthValue()); // Obtener el mes de la operación como un string con dos dígitos
+                
+                if (mesOperacion.equals(Mes)) {
+                    operacionesFiltradas.add(operacion);
+                }
+            }
 
             model.addAttribute("saldoini", valorInicial);
             model.addAttribute("saldofini", saldo);
-            model.addAttribute("operacionCuentas", operacionCuentaRepository.findByNumeroOrigenAndMonth(numeroOrigen, Mes));
+            model.addAttribute("operacionCuentas", operacionesFiltradas);
         } else if (!HayCuenta && HayMes){
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findByNumeroOrigen(numeroOrigen));
         } else if (HayCuenta && !HayMes){
-            System.out.println("SIIUUUUU");
+            
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findByMonth(Mes));
         } else {
-            System.out.println("SIIUUUUU al doble");
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findAllOperacionCuentas());
         }
         return "OperacionCuenta";
