@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.data.mongodb.repository.Query;
 import uniandes.edu.co.proyecto.Modelos.OperacionCuenta;
 import uniandes.edu.co.proyecto.Modelos.OperacionCuenta;
+import org.bson.Document;
 
 import java.util.Collection;
 import java.util.List;
@@ -56,17 +57,63 @@ public interface OperacionCuentaRepository extends MongoRepository<OperacionCuen
         @Query("{'id_operacion.fechaYHora': ?0}")
         Collection<OperacionCuenta> findById_operacionFechaYHora(String fechaYHora);
 
-        // @Transactional
-        // //@Query(value = "SELECT OC.* FROM OPERACIONCUENTA OC  INNER JOIN OPERACION OP ON OC.ID_OPERACION = OP.ID WHERE numeroOrigen = :id AND EXTRACT(MONTH FROM fechaYHora) = :mes", nativeQuery = true)
-        // Collection<OperacionCuenta> FiltrarPorCM(@Param("id") Integer id, @Param("mes") Integer mes);
+        @Query("{'$and': [{'numeroOrigen': ?0}, {'id_operacion.fechaYHora': {$regex: ?1}}]}")
+        Collection<OperacionCuenta> findByNumeroOrigenAndMonth(Integer numeroOrigen, String mes);
 
-        // @Transactional
-        // //@Query(value = "SELECT OC.* FROM OPERACIONCUENTA OC  INNER JOIN OPERACION OP ON OC.ID_OPERACION = OP.ID WHERE numeroOrigen = :id", nativeQuery = true)
-        // Collection<OperacionCuenta> FiltrarPorC(@Param("id") Integer id);
+        @Query("{'numeroOrigen': ?0}")
+        Collection<OperacionCuenta> findByNumeroOrigen(Integer numeroOrigen);
 
-        // @Transactional
-        // //@Query(value = "SELECT OC.* FROM OPERACIONCUENTA OC  INNER JOIN OPERACION OP ON OC.ID_OPERACION = OP.ID WHERE EXTRACT(MONTH FROM fechaYHora) = :mes", nativeQuery = true)
-        // Collection<OperacionCuenta> FiltrarPorM(@Param("mes") Integer mes);
+        @Query("{'id_operacion.fechaYHora': {$regex: ?0}}")
+        Collection<OperacionCuenta> findByMonth(String mes);
+
+        @Query("{'$and': [{'id_operacion.tipoOperacion': 'CONSIGNACION'}, {'numeroDestino': ?0}, {'id_operacion.fechaYHora': {$regex: ?1}}]}")
+        Integer sumConsignacionesByNumeroDestinoAndMonth(Integer numeroCuenta, String mes);
+
+        @Query("{'$and': [{'id_operacion.tipoOperacion': 'RETIRO'}, {'numeroOrigen': ?0}, {'id_operacion.fechaYHora': {$regex: ?1}}]}")
+        Integer sumRetirosByNumeroOrigenAndMonth(Integer numeroCuenta, String mes);
+
+        @Query("{'$and': [{'id_operacion.tipoOperacion': 'TRANSFERENCIA'}, {'numeroOrigen': ?0}, {'numeroDestino': {$ne: ?0}}, {'id_operacion.fechaYHora': {$regex: ?1}}]}")
+        Integer sumTransferenciasByNumeroOrigenAndMonth(Integer numeroCuenta, String mes);
+
+        @Query(value = "{'$and': [{'id_operacion.tipoOperacion': 'CONSIGNACION'}, {'numeroDestino': ?1}, {'id_operacion.fechaYHora': {$regex: ?0}}]}", fields = "{'monto': 1, '_id': 0}")
+        Document sumConsignacionesByMonthAndNumeroDestino(String mes, Integer numeroCuenta);
+
+        default Integer sumConsignacionesByMonthAndNumeroDestinoTotal(String mes, Integer numeroCuenta) {
+                Document result = sumConsignacionesByMonthAndNumeroDestino(mes, numeroCuenta);
+                Integer total = 0;
+                if (result != null && result.containsKey("monto")) {
+                        total = result.getInteger("monto");
+                }
+                return total;
+        }
+
+        @Query(value = "{'$and': [{'id_operacion.tipoOperacion': 'RETIRO'}, {'numeroOrigen': ?1}, {'id_operacion.fechaYHora': {$regex: ?0}}]}", fields = "{'monto': 1, '_id': 0}")
+        Document sumRetirosByMonthAndNumeroOrigen(String mes, Integer numeroCuenta);
+
+        default Integer sumRetirosByMonthAndNumeroOrigenTotal(String mes, Integer numeroCuenta) {
+                Document result = sumRetirosByMonthAndNumeroOrigen(mes, numeroCuenta);
+                Integer total = 0;
+                if (result != null && result.containsKey("monto")) {
+                        total = result.getInteger("monto");
+                }
+                return total;
+        }
+
+        @Query(value = "{'$and': [{'id_operacion.tipoOperacion': 'TRANSFERENCIA'}, {'numeroOrigen': ?1}, {'numeroDestino': {$ne: ?1}}, {'id_operacion.fechaYHora': {$regex: ?0}}]}", fields = "{'monto': 1, '_id': 0}")
+        Document sumTransferenciasByMonthAndNumeroOrigen(String mes, Integer numeroCuenta);
+
+        default Integer sumTransferenciasByMonthAndNumeroOrigenTotal(String mes, Integer numeroCuenta) {
+                Document result = sumTransferenciasByMonthAndNumeroOrigen(mes, numeroCuenta);
+                Integer total = 0;
+                if (result != null && result.containsKey("monto")) {
+                        total = result.getInteger("monto");
+                }
+                return total;
+        }
+        
+
+
+
 
         // @Transactional
         // //@Query(value = "SELECT saldo FROM OPERACIONCUENTA OC  INNER JOIN OPERACION OP ON OC.ID_OPERACION = OP.ID WHERE EXTRACT(MONTH FROM fechaYHora) = :mes", nativeQuery = true)

@@ -3,6 +3,7 @@ package uniandes.edu.co.proyecto.Controllers;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -69,14 +70,12 @@ public class OperacionCuentaController {
         return nuevoId;
     }
 
-    @SuppressWarnings("null")
+    @SuppressWarnings({ "null", "deprecation" })
     @GetMapping("/operacionCuentas")
-    public String operacionCuentas(Model model, String fechaYHora, Integer Cuenta, Integer Mes) throws ParseException {
+    public String operacionCuentas(Model model, String fechaYHora, Integer numeroOrigen, String Mes) throws ParseException {
 
         Boolean HayFecha = (fechaYHora == null || "".equals(fechaYHora));
-        @SuppressWarnings("unlikely-arg-type")
-        Boolean HayCuenta = (Cuenta == null || "".equals(Cuenta));
-        @SuppressWarnings("unlikely-arg-type")
+        Boolean HayCuenta = (numeroOrigen == null || "".equals(numeroOrigen));
         Boolean HayMes = (Mes == null || "".equals(Mes));
         if (!HayFecha && HayCuenta && HayMes) {
             SimpleDateFormat dateFormat;
@@ -92,24 +91,60 @@ public class OperacionCuentaController {
             String fechaFormateada = dateFormat.format(sqlDate);
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findById_operacionFechaYHora(fechaFormateada));
         } else if (!HayCuenta && !HayMes) {
-            // Integer saldo = cuentaRepository.DineroCuenta(Cuenta);
-            // Integer saldoretiro = operacionCuentaRepository
-            //         .calcularSumaSaldosRetirosPorNumeroCuentaOrigen(Cuenta) != null
-            //                 ? operacionCuentaRepository.calcularSumaSaldosRetirosPorNumeroCuentaOrigen(Cuenta)
-            //                 : 0;
-            // Integer saldotrans = operacionCuentaRepository.calcularSumaTransferenciasSalientes(Cuenta) != null
-            //         ? operacionCuentaRepository.calcularSumaTransferenciasSalientes(Cuenta)
-            //         : 0;
+            Integer Dinero = cuentaRepository.findCuentaById(numeroOrigen.toString()).getSaldo();
+            SimpleDateFormat sdf = new SimpleDateFormat("MM");
+            String mesSiguiente = "";
+            try {
+                Date date = sdf.parse(Mes);
+                date.setMonth(date.getMonth() + 1);
+                mesSiguiente = sdf.format(date);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Integer consignacionDespues = 0;
+            Integer RetirosDespues = 0;
+            Integer TransferenciasDespues = 0;
+            // if ((operacionCuentaRepository.sumConsignacionesByNumeroDestinoAndMonth(numeroOrigen, mesSiguiente) != null) || Mes != "12") {
+            // consignacionDespues = operacionCuentaRepository.sumConsignacionesByNumeroDestinoAndMonth(numeroOrigen, mesSiguiente);
+            // }
+            // if ((operacionCuentaRepository.sumRetirosByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente) != null) || Mes != "12") {
+            // RetirosDespues = operacionCuentaRepository.sumRetirosByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente);
+            // } 
+            // if ((operacionCuentaRepository.sumTransferenciasByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente) != null)) {
+            // TransferenciasDespues = operacionCuentaRepository.sumTransferenciasByNumeroOrigenAndMonth(numeroOrigen, mesSiguiente);
+            // }
 
-            // Integer valorInicial = saldo + saldoretiro + saldotrans;
-            // model.addAttribute("saldoini", valorInicial);
-            // model.addAttribute("saldofini", saldo);
-            // model.addAttribute("operacionCuentas", operacionCuentaRepository.FiltrarPorCM(Cuenta, Mes));
+            Integer consignacion = 0;
+            Integer Retiros = 0;
+            Integer Transferencias = 0;
+            if ((operacionCuentaRepository.sumConsignacionesByMonthAndNumeroDestinoTotal(mesSiguiente, numeroOrigen) != null)) {
+                consignacion = operacionCuentaRepository.sumConsignacionesByMonthAndNumeroDestinoTotal(mesSiguiente, numeroOrigen);
+            } 
+            if ((operacionCuentaRepository.sumRetirosByMonthAndNumeroOrigen(mesSiguiente, numeroOrigen) != null)) {
+            
+                Retiros = operacionCuentaRepository.sumRetirosByMonthAndNumeroOrigenTotal(mesSiguiente, numeroOrigen);
+            }
+            if ((operacionCuentaRepository.sumTransferenciasByMonthAndNumeroOrigen(mesSiguiente, numeroOrigen) != null)) {
+                Transferencias = operacionCuentaRepository.sumTransferenciasByMonthAndNumeroOrigenTotal(mesSiguiente, numeroOrigen);
+            }
+
+            int saldo = Dinero - consignacionDespues + RetirosDespues + TransferenciasDespues;
+            System.out.println(saldo);
+            System.out.println(Retiros);
+            System.out.println(Transferencias);
+            System.out.println(consignacion);
+            int valorInicial = saldo + Retiros + Transferencias - consignacion;
+
+            model.addAttribute("saldoini", valorInicial);
+            model.addAttribute("saldofini", saldo);
+            model.addAttribute("operacionCuentas", operacionCuentaRepository.findByNumeroOrigenAndMonth(numeroOrigen, Mes));
         } else if (!HayCuenta && HayMes){
-            //model.addAttribute("operacionCuentas", operacionCuentaRepository.FiltrarPorC(Cuenta));
+            model.addAttribute("operacionCuentas", operacionCuentaRepository.findByNumeroOrigen(numeroOrigen));
         } else if (HayCuenta && !HayMes){
-            //model.addAttribute("operacionCuentas", operacionCuentaRepository.FiltrarPorM(Mes));
+            System.out.println("SIIUUUUU");
+            model.addAttribute("operacionCuentas", operacionCuentaRepository.findByMonth(Mes));
         } else {
+            System.out.println("SIIUUUUU al doble");
             model.addAttribute("operacionCuentas", operacionCuentaRepository.findAllOperacionCuentas());
         }
         return "OperacionCuenta";

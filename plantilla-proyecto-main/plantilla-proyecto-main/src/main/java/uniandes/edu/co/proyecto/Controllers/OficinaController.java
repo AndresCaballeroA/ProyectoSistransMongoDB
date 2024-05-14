@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import uniandes.edu.co.proyecto.Modelos.Cliente;
 import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Repositorio.EmpleadoRepository;
@@ -47,7 +48,9 @@ public class OficinaController {
     
     @GetMapping("/oficinas/new")
     public String oficinaform(Model model) {
-        model.addAttribute("oficina", new Oficina());
+        Oficina oficina = new Oficina();
+        oficina.setGerente(new Empleado());
+        model.addAttribute("oficina", oficina);
         return "oficinaNuevo";
     }
 
@@ -66,6 +69,7 @@ public class OficinaController {
     
     @GetMapping("/oficinas/{id}/edit")
     public String oficinaEditarForm(@PathVariable String id, Model model) {
+        System.out.println(oficinaRepository.findOficinaById(id).getGerente().getId());
         Oficina oficina = oficinaRepository.findOficinaById(id);
         if(oficina != null){
             model.addAttribute("oficina", oficina);
