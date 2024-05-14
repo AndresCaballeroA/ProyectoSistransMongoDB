@@ -15,8 +15,11 @@
             th:field="${cuenta.id}" required/>
 
             <label class="col-form-label">Estado</label>
-            <input class="form-control" type="text" id="estado"
-            th:field="${cuenta.estado}" required/>
+            <select class="form-control" id="estado" name="estado" required>
+                <option value="">Seleccione un estado</option>
+                <option value="Desactivada">Desactivada</option>
+                <option value="Cerrada">Cerrada</option>
+            </select>
 
                 <br>
             <div class="text-center">

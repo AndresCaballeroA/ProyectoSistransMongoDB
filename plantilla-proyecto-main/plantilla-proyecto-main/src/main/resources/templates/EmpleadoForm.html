@@ -14,10 +14,15 @@
             <input class="form-control" type="text" id="id_usuario.id" name="id_usuario.id" required th:value="${empleado.id_usuario.id}" />
 
 
-            <label class="col-from-label">Rol</label>
-            <input class="form-control" type="text" id="rolempleado"
-            name="rolempleado" required th:value="${empleado.rolempleado}"/>
+            <label class="col-form-label">Rol</label>
+            <select class="form-control" id="rolEmpleado" name="rolEmpleado" required>
+                <option value="">Seleccione un rol</option>
+                <option value="Gerente General">Gerente General</option>
+                <option value="Gerente de Oficina">Gerente de Oficina</option>
+                <option value="Cajero">Cajero</option>
+            </select>
             <br>
+            
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary"/>
                 <a href="#" onclick="return goBack();" class="btn btn btn-primary"> Cancelar </a>

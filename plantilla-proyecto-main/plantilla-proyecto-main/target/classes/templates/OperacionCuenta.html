@@ -17,6 +17,17 @@
         th, td {
             text-align: center; /* Centrar todos los textos */
         }
+
+        .form-control-small {
+            width: 320px; /* Ancho personalizado */
+            margin-bottom: 10px; /* Agregar un margen inferior */
+            margin-right: 10px; 
+            margin-left: 10px; 
+        }
+
+        .label-margin {
+            margin-left: 10px; /* Agregar margen izquierdo */
+        }
     </style>
 </head>
 
@@ -27,7 +38,7 @@
         <p>El saldo inicial es <span th:text="${saldoini}"></span><br>
         El saldo final es <span th:text="${saldofini}"></span></p>
 
-        <div class="container w-25">
+        <div class="container w-25"> <!-- Cambiar w-25 por w-50 -->
             <div class="card border border-2 mx-auto">
                 <h5 class="card-header" role="button" id="headingOne">
                     <a href="#" class="collapsed d-block" data-bs-toggle="collapse" data-bs-target="#busqueda">
@@ -36,14 +47,14 @@
                 </h5>
                 <div id="busqueda" class="collapse">
                     <form th:action="@{/operacionCuentas}" method="get">
-                        <label class="col-form-label">fechaYHora del ultimo movimiento</label>
-                        <input class="form-control" type="text" id="fechaYHora" name="fechaYHora" />
+                        <label class="col-form-label label-margin">Fecha del ultimo movimiento</label>
+                        <input class="form-control form-control-small" type="text" id="fechaYHora" name="fechaYHora" />
 
-                        <label class="col-form-label">numeroOrigen</label>
-                        <input class="form-control" type="text" id="numeroOrigen" name="numeroOrigen" />
+                        <label class="col-form-label label-margin">Numero Cuenta</label>
+                        <input class="form-control form-control-small" type="text" id="numeroOrigen" name="numeroOrigen" />
 
-                        <label class="col-form-label">Mes</label>
-                        <input class="form-control" type="text" id="Mes" name="Mes" />
+                        <label class="col-form-label label-margin">Mes</label>
+                        <input class="form-control form-control-small" type="text" id="Mes" name="Mes" />
         
                         <br />
         

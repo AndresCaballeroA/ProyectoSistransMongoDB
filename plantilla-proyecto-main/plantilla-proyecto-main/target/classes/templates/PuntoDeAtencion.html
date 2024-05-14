@@ -35,7 +35,7 @@
                 <tr>
                     <td th:text="${puntoDeAtencion.id}"></td>
                     <td th:text="${puntoDeAtencion.tipo}"></td>
-                    <td th:text="${puntoDeAtencion.getOficina().getId()}"></td>
+                    <td th:text="${puntoDeAtencion?.oficina?.getId()}"></td>
                     <td>
                         <a th:href="@{puntosDeAtencion/{id}/edit(id=${puntoDeAtencion.id})}">
                             Editar

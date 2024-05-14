@@ -26,11 +26,12 @@
             <label class="col-from-label">numPuntosPosibles</label>
             <input class="form-control" type="text" id="numPuntosPosibles"
             name="numPuntosPosibles" required th:value="${oficina.numPuntosPosibles}"/>
-
+            <br>
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary"/>
                 <a href="#" onclick="return goBack();" class="btn btn btn-primary"> Cancelar </a>
             </div>
+            <br>
             <script>
                 function goBack() {
                     window.history.back();

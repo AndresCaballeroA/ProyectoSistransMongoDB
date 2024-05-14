@@ -10,19 +10,27 @@
     <div th:fragment="CuentaForm(titulo)" class="container border border-2 w-25"> 
         <h1 class="text-center" th:text="${titulo}">Ingresa Datos de la Cuenta</h1>
         <form>
-            <label class="col-form-label">saldo</label>
+            <label class="col-form-label">Saldo</label>
             <input class="form-control" type="text" id="saldo"
             th:field="${cuenta.saldo}" required/>
 
-            <label class="col-form-label">tipo</label>
-            <input class="form-control" type="text" id="tipo"
-            th:field="${cuenta.tipo}" required/>
+            <label class="col-form-label">Tipo</label>
+            <select class="form-control" id="tipo" name="tipo" required>
+                <option value="">Seleccione un tipo de cuenta</option>
+                <option value="ahorros">Ahorros</option>
+                <option value="corriente">Corriente</option>
+                <option value="AFC">AFC</option>
+            </select>
 
-            <label class="col-form-label">estado</label>
-            <input class="form-control" type="text" id="estado"
-            th:field="${cuenta.estado}" required/>
+            <label class="col-form-label">Estado</label>
+            <select class="form-control" id="estado" name="estado" required>
+                <option value="">Seleccione un estado</option>
+                <option value="activa">Activa</option>
+                <option value="cerrada">Cerrada</option>
+                <option value="desactivada">Desactivada</option>
+            </select>
 
-            <label class="col-form-label">fechaCreacion</label>
+            <label class="col-form-label">Fecha de Creacion</label>
             <input class="form-control" type="text" id="fechaCreacion"
             th:field="${cuenta.fechaCreacion}" required/>
 

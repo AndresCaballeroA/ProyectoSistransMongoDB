@@ -64,6 +64,11 @@ public class PuntoDeAtencionController {
         if (oficinaRepository.findOficinaById(puntoDeAtencion.getOficina().getId()) != null){
             puntoDeAtencion.setOficina(oficinaRepository.findOficinaById(puntoDeAtencion.getOficina().getId()));
             puntoDeAtencionRepository.insertPuntoDeAtencion(puntoDeAtencion);
+        } else if (puntoDeAtencion.getTipo().equals("Digital")) {
+            Oficina oficina = new Oficina();
+            oficina.setId("Null");
+            puntoDeAtencion.setOficina(oficina);
+            puntoDeAtencionRepository.insertPuntoDeAtencion(puntoDeAtencion);
         }
     
         return "redirect:/puntosDeAtencion";

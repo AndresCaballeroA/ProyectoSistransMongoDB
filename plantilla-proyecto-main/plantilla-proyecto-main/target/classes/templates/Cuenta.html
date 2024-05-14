@@ -19,6 +19,17 @@
         td {
             text-align: center;
         }
+
+        .form-control-small {
+            width: 320px; /* Ancho personalizado */
+            margin-bottom: 10px; /* Agregar un margen inferior */
+            margin-right: 10px; 
+            margin-left: 10px; 
+        }
+
+        .label-margin {
+            margin-left: 10px; /* Agregar margen izquierdo */
+        }
     </style>
 </head>
 
@@ -35,26 +46,20 @@
                 </h5>
                 <div id="busqueda" class="collapse">
                     <form th:action="@{/cuentas}" method="get">
-                        <label class="col-form-label">TipoCuenta</label>
-                        <input class="form-control" type="text" id="TipoCuenta" name="TipoCuenta" />
+                        <label class="col-form-label label-margin">TipoCuenta</label>
+                        <input class="form-control form-control-small" type="text" id="TipoCuenta" name="TipoCuenta" />
         
-                        <label class="col-form-label">Mínimo saldo</label>
-                        <input class="form-control" type="number" id="minSaldo" name="minSaldo" />
+                        <label class="col-form-label label-margin">Mínimo saldo</label>
+                        <input class="form-control form-control-small" type="number" id="minSaldo" name="minSaldo" />
         
-                        <label class="col-form-label">Máximo saldo</label>
-                        <input class="form-control" type="number" id="Maxsaldo" name="Maxsaldo" />
+                        <label class="col-form-label label-margin">Máximo saldo</label>
+                        <input class="form-control form-control-small" type="number" id="Maxsaldo" name="Maxsaldo" />
                         
-                        <label class="col-form-label">fechaCreacion</label>
-                        <input class="form-control" type="text" id="fechaCreacion" name="fechaCreacion" />
+                        <label class="col-form-label label-margin">fechaCreacion</label>
+                        <input class="form-control form-control-small" type="text" id="fechaCreacion" name="fechaCreacion" />
                         
-                        <label class="col-form-label">Cliente ID</label>
-                        <input class="form-control" type="text" id="cliente" name="cliente" />
-                        
-                        <!-- <label class="col-form-label">Oficinas Relacionadas</label>
-                        <select class="form-control" id="oficina" name="oficina">
-                            <option value="Si">Si</option>
-                            <option value="No" selected>No</option>
-                        </select> -->
+                        <label class="col-form-label label-margin">Cliente ID</label>
+                        <input class="form-control form-control-small" type="text" id="cliente" name="cliente" />
 
                         <br />
         

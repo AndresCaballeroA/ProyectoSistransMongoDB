@@ -14,18 +14,28 @@
             <input class="form-control" type="text" id="usuarioID" name="usuarioID"/>
 
             <label class="col-form-label">Rol Cliente</label>
-            <input class="form-control" type="text" id="rolCliente"
-            name="rolCliente" required th:value="${cliente.rolCliente}"/>
+            <select class="form-control" id="rolCliente" name="rolCliente">
+                <option value="">Seleccione un rol</option>
+                <option value="Persona Natural">Persona Natural</option>
+                <option value="Persona Jurídica">Persona Jurídica</option>
+                <option value="Empleado">Empleado</option>
+            </select>
 
             <label class="col-form-label">ID Oficina</label>
             <input class="form-control" type="text" id="oficinaID" name="oficinaID"/>
-
+            <br>
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary"/>
-                <a th:href="@{/Cliente}" class="btn btn btn-primary"> Cancelar </a>
+                <button class="btn btn btn-primary" onclick="goBack()">Cancelar</button>
             </div>
+            <br>
         </form>
     </div>
 
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
