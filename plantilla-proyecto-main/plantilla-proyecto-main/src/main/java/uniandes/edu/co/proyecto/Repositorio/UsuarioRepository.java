@@ -1,7 +1,5 @@
 package uniandes.edu.co.proyecto.Repositorio;
 
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import uniandes.edu.co.proyecto.Modelos.Usuario;

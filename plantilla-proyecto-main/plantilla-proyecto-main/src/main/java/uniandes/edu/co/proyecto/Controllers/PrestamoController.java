@@ -1,20 +1,6 @@
 package uniandes.edu.co.proyecto.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import org.springframework.stereotype.Controller;
-
-import uniandes.edu.co.proyecto.Modelos.Cliente;
-import uniandes.edu.co.proyecto.Modelos.Operacion;
-import uniandes.edu.co.proyecto.Modelos.Prestamo;
-import uniandes.edu.co.proyecto.Repositorio.OperacionRepository;
-import uniandes.edu.co.proyecto.Repositorio.PrestamoRepository;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 public class PrestamoController {

@@ -1,14 +1,8 @@
 package uniandes.edu.co.proyecto.Repositorio;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.data.mongodb.repository.Query;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.Modelos.ClienteEmpleado;
 import uniandes.edu.co.proyecto.Modelos.ClienteEmpleadoId;
-import java.util.Optional;
-
-import java.util.Collection;
 
 public interface ClienteEmpleadoRepository extends MongoRepository<ClienteEmpleado, ClienteEmpleadoId> {
 

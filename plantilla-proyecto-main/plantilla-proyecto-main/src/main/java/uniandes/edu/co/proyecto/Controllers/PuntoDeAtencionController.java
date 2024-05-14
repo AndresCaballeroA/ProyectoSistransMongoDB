@@ -6,14 +6,10 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
-import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Modelos.PuntoDeAtencion;
-import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.OficinaRepository;
 import uniandes.edu.co.proyecto.Repositorio.PuntoDeAtencionRepository;
-import uniandes.edu.co.proyecto.Repositorio.UsuarioRepository;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 

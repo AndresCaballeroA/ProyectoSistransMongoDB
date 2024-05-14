@@ -2,12 +2,8 @@ package uniandes.edu.co.proyecto.Repositorio;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.Modelos.PuntoDeAtencion;
-import uniandes.edu.co.proyecto.Modelos.PuntoDeAtencion;
-
 import org.springframework.data.mongodb.repository.Query;
-import java.util.Collection;
 import java.util.List;
 
 public interface PuntoDeAtencionRepository extends MongoRepository<PuntoDeAtencion, String> {

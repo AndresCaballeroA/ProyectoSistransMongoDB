@@ -4,11 +4,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.Modelos.Cuenta;
-import uniandes.edu.co.proyecto.Modelos.OperacionCuenta;
-import uniandes.edu.co.proyecto.Modelos.Cuenta;
-
 import org.springframework.data.mongodb.repository.Query;
-import java.sql.Date;
 import java.util.Collection;
 import java.util.List;
 

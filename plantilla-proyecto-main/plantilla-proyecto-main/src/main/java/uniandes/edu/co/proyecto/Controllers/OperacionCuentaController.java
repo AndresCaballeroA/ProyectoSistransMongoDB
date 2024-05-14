@@ -13,13 +13,11 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.Modelos.Cuenta;
-import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Modelos.Operacion;
 import uniandes.edu.co.proyecto.Modelos.OperacionCuenta;
 import uniandes.edu.co.proyecto.Repositorio.CuentaRepository;
 import uniandes.edu.co.proyecto.Repositorio.OperacionCuentaRepository;
 import uniandes.edu.co.proyecto.Repositorio.OperacionRepository;
-import uniandes.edu.co.proyecto.Services.OperacionCuentaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import java.text.SimpleDateFormat;
@@ -76,6 +74,7 @@ public class OperacionCuentaController {
     public String operacionCuentas(Model model, String fechaYHora, Integer numeroOrigen, String Mes) throws ParseException {
 
         Boolean HayFecha = (fechaYHora == null || "".equals(fechaYHora));
+        @SuppressWarnings("unlikely-arg-type")
         Boolean HayCuenta = (numeroOrigen == null || "".equals(numeroOrigen));
         Boolean HayMes = (Mes == null || "".equals(Mes));
         if (!HayFecha && HayCuenta && HayMes) {
@@ -354,39 +353,4 @@ public class OperacionCuentaController {
         operacionCuentaRepository.deleteOperacionCuenta(id);
         return "redirect:/operacionCuentas";
     }
-
-    // @GetMapping("/operacionCuentas/newser")
-    // public String cuentaformser(Model model) {
-    //     return "SerializableFormNuevo";
-    // }
-
-    // @GetMapping("/operacionCuentas/serializable")
-    // public String consultarOperacionesSerializable(@RequestParam("id") Integer id, Model model) {
-    //     System.out.println(id);
-    //     try{
-    //         Collection<OperacionCuenta> operaciones = operacionCuentaService.darOperacionesSerializable(id);
-    //         model.addAttribute("operacionCuentas", operaciones);
-    //     }
-    //     catch (Exception e){
-    //         System.err.println("Error en la consulta de cuentas:" + e.getMessage());
-    //     }
-    //     return "OperacionCuenta";
-    // }
-
-    // @GetMapping("/operacionCuentas/newnoser")
-    // public String cuentaformnoser(Model model) {
-    //     return "SerializableFormNuevo1";
-    // }
-    // @GetMapping("/operacionCuentas/noserializable")
-    // public String consultarOperacionesNoSerializable(@RequestParam("id") Integer id, Model model) {
-    //     try{
-    //         Collection<OperacionCuenta> operaciones = operacionCuentaService.darOperacionesNoSerializable(id);
-    //         model.addAttribute("operacionCuentas", operaciones);
-    //     }
-    //     catch (Exception e){
-    //         System.err.println("Error en la consulta de cuentas:" + e.getMessage());
-    //     }
-    //     return "OperacionCuenta";
-    // }
-
 }

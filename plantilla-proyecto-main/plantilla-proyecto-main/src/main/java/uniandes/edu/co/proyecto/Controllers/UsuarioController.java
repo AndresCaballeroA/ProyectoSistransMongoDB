@@ -9,7 +9,6 @@ import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.UsuarioRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.domain.Sort;
 
 

@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BancAndes</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #91c1df; /* Color de fondo azul claro */
+            background-color: #91c1df;
             margin: 0;
             padding: 0;
         }
@@ -52,16 +53,15 @@
             max-width: 200px;
             position: relative;
             margin-right: 10px;
+            transition: background-color 0.3s;
+            background-color: #56c46f;
+            border-color: #56c46f;
+            color: #000;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+        .btn-group > .btn:hover {
+            background-color: #ffc107;
+            border-color: #ffc107;
         }
 
         .btn-tooltip {
@@ -85,6 +85,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <div class="row">
@@ -102,35 +103,35 @@
         <div class="row">
             <div class="col text-center">
                 <div class="btn-group">
-                    <a th:href="@{/usuarios}" class="btn btn-primary">
+                    <a th:href="@{/usuarios}" class="btn">
                         Usuarios
                         <span class="btn-tooltip">Base de datos Usuarios</span>
                     </a>
-                    <a th:href="@{/oficinas}" class="btn btn-primary">
+                    <a th:href="@{/oficinas}" class="btn">
                         Oficinas
                         <span class="btn-tooltip">Base de datos Oficinas</span>
                     </a>
-                    <a th:href="@{/puntosDeAtencion}" class="btn btn-primary">
+                    <a th:href="@{/puntosDeAtencion}" class="btn">
                         Punto de Atención
                         <span class="btn-tooltip">Base de datos Puntos de Atención</span>
                     </a>
-                    <a th:href="@{/clientes}" class="btn btn-primary">
+                    <a th:href="@{/clientes}" class="btn">
                         Clientes
                         <span class="btn-tooltip">Base de datos Clientes</span>
                     </a>
-                    <a th:href="@{/empleados}" class="btn btn-primary">
+                    <a th:href="@{/empleados}" class="btn">
                         Empleados
                         <span class="btn-tooltip">Base de datos Empleados</span>
                     </a>
-                    <a th:href="@{/operaciones}" class="btn btn-primary">
+                    <a th:href="@{/operaciones}" class="btn">
                         Operaciones
                         <span class="btn-tooltip">Base de datos Operaciones</span>
                     </a>
-                    <a th:href="@{/cuentas}" class="btn btn-primary">
+                    <a th:href="@{/cuentas}" class="btn">
                         Cuentas
                         <span class="btn-tooltip">Base de datos Cuentas</span>
                     </a>
-                    <a th:href="@{/operacionCuentas}" class="btn btn-primary">
+                    <a th:href="@{/operacionCuentas}" class="btn">
                         Operación Cuenta
                         <span class="btn-tooltip">Base de datos Operación Cuenta</span>
                     </a>
@@ -139,4 +140,5 @@
         </div>
     </div>
 </body>
+
 </html>

@@ -1,13 +1,6 @@
 package uniandes.edu.co.proyecto.Controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import uniandes.edu.co.proyecto.Modelos.Operacion;
-import uniandes.edu.co.proyecto.Modelos.OperacionPrestamo;
-import uniandes.edu.co.proyecto.Repositorio.OperacionPrestamoRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 
 @Controller
 public class OperacionPrestamoController {

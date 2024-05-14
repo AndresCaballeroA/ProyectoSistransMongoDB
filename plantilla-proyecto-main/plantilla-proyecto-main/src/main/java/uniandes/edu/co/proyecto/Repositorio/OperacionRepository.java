@@ -4,12 +4,7 @@ package uniandes.edu.co.proyecto.Repositorio;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.query.Param;
 import uniandes.edu.co.proyecto.Modelos.Operacion;
-import uniandes.edu.co.proyecto.Modelos.OperacionCuenta;
-import uniandes.edu.co.proyecto.Modelos.Operacion;
-
-import java.util.Collection;
 import java.util.List;
 
 public interface OperacionRepository extends MongoRepository<Operacion, String> {
