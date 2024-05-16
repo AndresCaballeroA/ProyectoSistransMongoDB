@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragmento</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
 </head>
+
 <body>
-    <div th:fragment="OperacionForm(titulo)" class="container border border-2 w-25"> 
+    <div th:fragment="OperacionForm(titulo)" class="container border border-2 w-25">
         <h1 class="text-center" th:text="${titulo}">Ingrese datos de operacion</h1>
         <form>
 
             <label class="col-form-label">Fecha y hora</label>
-            <input class="form-control" type="text" id="fechaYHora"
-            name="fechaYHora" required th:value="${operacion.fechaYHora}"/>
+            <input class="form-control" type="text" id="fechaYHora" name="fechaYHora" required
+                th:value="${operacion.fechaYHora}" />
 
             <label class="col-form-label">Tipo de operación</label>
             <select class="form-control" id="tipoOperacion" name="tipoOperacion" required>
-                <option value="" th:selected="${operacion.tipoOperacion eq null}">Seleccione un tipo de operación</option>
-                <option value="TRANSFERENCIA">Transferencia</option>
-                <option value="RETIRO">Retiro</option>
-                <option value="CONSIGNACION">Consignacion</option>
+                <option value="" th:selected="${operacion.tipoOperacion eq null}">Seleccione un tipo de operación
+                </option>
+                <option value="TRANSFERENCIA" th:selected="${operacion.tipoOperacion eq 'TRANSFERENCIA'}">Transferencia
+                </option>
+                <option value="RETIRO" th:selected="${operacion.tipoOperacion eq 'RETIRO'}">Retiro</option>
+                <option value="CONSIGNACION" th:selected="${operacion.tipoOperacion eq 'CONSIGNACION'}">Consignación
+                </option>
             </select>
+
             <br>
             <div class="text-center">
-                <input type="submit" value="Guardar" class="btn btn-primary"/>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
                 <a href="#" onclick="return goBack();" class="btn btn btn-primary"> Cancelar </a>
             </div>
             <br>
@@ -38,4 +44,5 @@
     </div>
 
 </body>
+
 </html>
