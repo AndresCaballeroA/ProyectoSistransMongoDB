@@ -10,18 +10,22 @@
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
+            /* Color de fondo */
             margin: 0;
             padding: 0;
         }
 
         .container {
             margin: 20px auto;
+            /* Margen alrededor del contenedor */
             padding: 20px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
             margin-top: 50px;
+            /* Margen superior */
             margin-bottom: 50px;
+            /* Margen inferior */
         }
 
         h1 {
@@ -59,7 +63,7 @@
 
                 <label class="col-from-label">Tipo de documento</label>
                 <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
-                    <option value="" title="Documento de identidad">Seleccione un tipo de documento</option>
+                    <option value="" title="Documento de identidad" th:selected="${usuario.tipoDocumento eq null}">Seleccione un tipo de documento</option>
                     <option value="C.C." title="Cédula de ciudadanía">Cédula de ciudadanía (C.C.)</option>
                     <option value="T.I." title="Tarjeta de identidad">Tarjeta de identidad (T.I.)</option>
                     <option value="C.E." title="Cédula de extranjería">Cédula de extranjería (C.E.)</option>
@@ -93,7 +97,7 @@
 
             <label class="col-from-label">Ciudad</label>
             <select class="form-control" id="ciudad" name="ciudad" required>
-                <option value="">Seleccione una ciudad</option>
+                <option value="" th:selected="${usuario.ciudad eq null}">Seleccione una ciudad</option>
                 <option value="Bogotá">Bogotá</option>
                 <option value="Medellín">Medellín</option>
                 <option value="Cali">Cali</option>
@@ -108,7 +112,7 @@
 
             <label class="col-from-label">Departamento</label>
             <select class="form-control" id="departamento" name="departamento" required>
-                <option value="">Seleccione un departamento</option>
+                <option value="" th:selected="${usuario.departamento eq null}">Seleccione un departamento</option>
                 <option value="Amazonas">Amazonas</option>
                 <option value="Antioquia">Antioquia</option>
                 <option value="Arauca">Arauca</option>

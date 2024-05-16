@@ -16,18 +16,18 @@
 
             <label class="col-form-label">Tipo</label>
             <select class="form-control" id="tipo" name="tipo" required>
-                <option value="">Seleccione un tipo de cuenta</option>
-                <option value="ahorros">Ahorros</option>
-                <option value="corriente">Corriente</option>
+                <option value="" th:selected="${cuenta.tipo eq null}">Seleccione un tipo de cuenta</option>
+                <option value="Ahorros">Ahorros</option>
+                <option value="Corriente">Corriente</option>
                 <option value="AFC">AFC</option>
             </select>
 
             <label class="col-form-label">Estado</label>
             <select class="form-control" id="estado" name="estado" required>
-                <option value="">Seleccione un estado</option>
-                <option value="activa">Activa</option>
-                <option value="cerrada">Cerrada</option>
-                <option value="desactivada">Desactivada</option>
+                <option value="" th:selected="${cuenta.estado eq null}">Seleccione un estado</option>
+                <option value="Activa">Activa</option>
+                <option value="Cerrada">Cerrada</option>
+                <option value="Desactivada">Desactivada</option>
             </select>
 
             <label class="col-form-label">Fecha de Creacion</label>

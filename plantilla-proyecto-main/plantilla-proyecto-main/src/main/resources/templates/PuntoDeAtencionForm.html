@@ -15,14 +15,14 @@
 
             <label class="col-from-label">Tipo</label>
             <select class="form-control" id="tipo" name="tipo" required onchange="checkTipo()">
-                <option value="">Seleccione el tipo de punto de atención</option>
+                <option value="" th:selected="${puntoDeAtencion.tipo eq null}">Seleccione el tipo de punto de atención</option>
                 <option value="Atención personalizada">Atención personalizada</option>
                 <option value="Cajero automático">Cajero automático</option>
                 <option value="Digital">Digital</option>
             </select>
 
             <label class="col-from-label">ID Oficina</label>
-            <input class="form-control" type="text" id="oficina_id" name="oficina.id" required />
+            <input class="form-control" type="text" id="oficina_id" name="oficina.id" th:value="${puntoDeAtencion.oficina.id}" required/>
 
             <script>
                 function checkTipo() {
@@ -33,7 +33,6 @@
                         idOficinaInput.value = "Null";
                         idOficinaInput.readOnly = true;
                     } else {
-                        idOficinaInput.value = "";
                         idOficinaInput.readOnly = false;
                     }
                 }

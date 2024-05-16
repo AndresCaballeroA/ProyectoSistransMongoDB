@@ -16,10 +16,11 @@
 
             <label class="col-form-label">Estado</label>
             <select class="form-control" id="estado" name="estado" required>
-                <option value="">Seleccione un estado</option>
-                <option value="Desactivada">Desactivada</option>
-                <option value="Cerrada">Cerrada</option>
+                <option value="" th:selected="${cuenta.estado eq null}">Seleccione un estado</option>
+                <option value="Desactivada" th:selected="${cuenta.estado eq 'Desactivada'}">Desactivada</option>
+                <option value="Cerrada" th:selected="${cuenta.estado eq 'Cerrada'}">Cerrada</option>
             </select>
+
 
                 <br>
             <div class="text-center">

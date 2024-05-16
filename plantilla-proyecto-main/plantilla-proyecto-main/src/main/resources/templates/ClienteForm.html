@@ -15,7 +15,7 @@
 
             <label class="col-form-label">Rol Cliente</label>
             <select class="form-control" id="rolCliente" name="rolCliente">
-                <option value="">Seleccione un rol</option>
+                <option value="" th:selected="${Cliente.rolCliente eq null}">Seleccione un rol</option>
                 <option value="Persona Natural">Persona Natural</option>
                 <option value="Persona Jurídica">Persona Jurídica</option>
                 <option value="Empleado">Empleado</option>

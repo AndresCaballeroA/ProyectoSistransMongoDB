@@ -16,7 +16,7 @@
 
             <label class="col-form-label">Rol</label>
             <select class="form-control" id="rolEmpleado" name="rolEmpleado" required>
-                <option value="">Seleccione un rol</option>
+                <option value="" th:selected="${empleado.rolEmpleado eq null}">Seleccione un rol</option>
                 <option value="Gerente General">Gerente General</option>
                 <option value="Gerente de Oficina">Gerente de Oficina</option>
                 <option value="Cajero">Cajero</option>

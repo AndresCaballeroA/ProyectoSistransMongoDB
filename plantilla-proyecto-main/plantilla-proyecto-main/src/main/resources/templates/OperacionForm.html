@@ -17,7 +17,7 @@
 
             <label class="col-form-label">Tipo de operación</label>
             <select class="form-control" id="tipoOperacion" name="tipoOperacion" required>
-                <option value="">Seleccione un tipo de operación</option>
+                <option value="" th:selected="${operacion.tipoOperacion eq null}">Seleccione un tipo de operación</option>
                 <option value="TRANSFERENCIA">Transferencia</option>
                 <option value="RETIRO">Retiro</option>
                 <option value="CONSIGNACION">Consignacion</option>
