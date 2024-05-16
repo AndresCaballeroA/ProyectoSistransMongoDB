@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
+import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Operacion;
 import uniandes.edu.co.proyecto.Repositorio.OperacionRepository;
 import org.springframework.stereotype.Controller;
@@ -25,15 +26,17 @@ public class OperacionController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Operacion ultimaOperacion = mongoOperations.findOne(query, Operacion.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Operacion ultimaCuenta = mongoOperations.findOne(query, Operacion.class);
 
-        String nuevoId = "1";
-        if (ultimaOperacion != null) {
-            String ultimoId = ultimaOperacion.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 

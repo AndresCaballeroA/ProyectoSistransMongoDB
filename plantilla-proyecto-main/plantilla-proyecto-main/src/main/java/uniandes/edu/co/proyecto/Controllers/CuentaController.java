@@ -27,17 +27,20 @@ public class CuentaController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
         Cuenta ultimaCuenta = mongoOperations.findOne(query, Cuenta.class);
 
-        String nuevoId = "1";
+        String nuevoId = "1"; 
         if (ultimaCuenta != null) {
             String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
+
     @SuppressWarnings({ "unlikely-arg-type", "null" })
     @GetMapping("/cuentas")
     public String cuentas(Model model, String TipoCuenta, Integer minSaldo, Integer Maxsaldo, String fechaCreacion,

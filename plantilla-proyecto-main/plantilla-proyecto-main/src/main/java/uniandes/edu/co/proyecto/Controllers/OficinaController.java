@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Repositorio.EmpleadoRepository;
@@ -27,15 +28,17 @@ public class OficinaController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Oficina ultimaOficina = mongoOperations.findOne(query, Oficina.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Oficina ultimaCuenta = mongoOperations.findOne(query, Oficina.class);
 
-        String nuevoId = "1";
-        if (ultimaOficina != null) {
-            String ultimoId = ultimaOficina.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 

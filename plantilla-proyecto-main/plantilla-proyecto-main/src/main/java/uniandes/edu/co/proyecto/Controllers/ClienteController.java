@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.stereotype.Controller;
 import uniandes.edu.co.proyecto.Modelos.Cliente;
+import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.ClienteRepository;
@@ -37,17 +38,20 @@ public class ClienteController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Cliente ultimaCliente = mongoOperations.findOne(query, Cliente.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Cliente ultimaCuenta = mongoOperations.findOne(query, Cliente.class);
 
-        String nuevoId = "1";
-        if (ultimaCliente != null) {
-            String ultimoId = ultimaCliente.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
+    
     @GetMapping("/clientes")
     public String clientes(Model model, String Cliente, String oficina) {
 

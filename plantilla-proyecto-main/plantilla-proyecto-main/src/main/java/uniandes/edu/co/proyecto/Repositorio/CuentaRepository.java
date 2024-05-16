@@ -48,7 +48,7 @@ public interface CuentaRepository extends MongoRepository<Cuenta, String> {
         @Query("{'tipo' : ?0}")
         Collection<Cuenta> darCuentasPortipo(@Param("tipo") String tipo);
 
-        @Transactional
+        @Query("{ 'saldo' : { $gte: ?0, $lte: ?1 } }")
         Collection<Cuenta> findBySaldoBetween(Integer minSaldo, Integer maxSaldo);
 
         @Query("{'fechaCreacion' : ?0}")

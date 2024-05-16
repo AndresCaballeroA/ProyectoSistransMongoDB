@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 import uniandes.edu.co.proyecto.Modelos.Usuario;
+import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Repositorio.EmpleadoRepository;
 import uniandes.edu.co.proyecto.Repositorio.UsuarioRepository;
@@ -26,15 +27,17 @@ public class EmpleadoController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Empleado ultimoEmpleado = mongoOperations.findOne(query, Empleado.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Empleado ultimaCuenta = mongoOperations.findOne(query, Empleado.class);
 
-        String nuevoId = "1";
-        if (ultimoEmpleado != null) {
-            String ultimoId = ultimoEmpleado.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 

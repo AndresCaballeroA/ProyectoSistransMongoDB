@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Modelos.PuntoDeAtencion;
+import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.OficinaRepository;
 import uniandes.edu.co.proyecto.Repositorio.PuntoDeAtencionRepository;
 import org.springframework.stereotype.Controller;
@@ -27,15 +28,17 @@ public class PuntoDeAtencionController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        PuntoDeAtencion ultimoPunto = mongoOperations.findOne(query, PuntoDeAtencion.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        PuntoDeAtencion ultimaCuenta = mongoOperations.findOne(query, PuntoDeAtencion.class);
 
-        String nuevoId = "1";
-        if (ultimoPunto != null) {
-            String ultimoId = ultimoPunto.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 

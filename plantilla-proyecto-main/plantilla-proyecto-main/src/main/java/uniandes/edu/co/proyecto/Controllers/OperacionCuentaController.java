@@ -43,29 +43,33 @@ public class OperacionCuentaController {
 
     public String generarNuevoId() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        OperacionCuenta ultimoOp = mongoOperations.findOne(query, OperacionCuenta.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        OperacionCuenta ultimaCuenta = mongoOperations.findOne(query, OperacionCuenta.class);
 
-        String nuevoId = "1";
-        if (ultimoOp != null) {
-            String ultimoId = ultimoOp.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero + 1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 
     public String generarNuevoId1() {
         
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Operacion ultimoOp = mongoOperations.findOne(query, Operacion.class);
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Operacion ultimaCuenta = mongoOperations.findOne(query, Operacion.class);
 
-        String nuevoId = "1";
-        if (ultimoOp != null) {
-            String ultimoId = ultimoOp.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); 
-            nuevoId = String.valueOf(ultimoNumero+1); 
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 

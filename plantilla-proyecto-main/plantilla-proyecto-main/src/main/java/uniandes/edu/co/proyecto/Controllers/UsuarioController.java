@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import uniandes.edu.co.proyecto.Modelos.Operacion;
 import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.UsuarioRepository;
 import org.springframework.stereotype.Controller;
@@ -22,16 +23,18 @@ public class UsuarioController {
     private MongoOperations mongoOperations;
 
     public String generarNuevoId() {
-        // Realizar una consulta para obtener el último ID generado
-        Query query = new Query().limit(1).with(Sort.by(Sort.Order.desc("id")));
-        Usuario ultimoUsuario = mongoOperations.findOne(query, Usuario.class);
+        
+        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
+        
+        Usuario ultimaCuenta = mongoOperations.findOne(query, Usuario.class);
 
-        String nuevoId = "1";
-        if (ultimoUsuario != null) {
-            String ultimoId = ultimoUsuario.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId); // Convertir el último ID a número
-            nuevoId = String.valueOf(ultimoNumero + 1); // Incrementar el último ID en uno
+        String nuevoId = "1"; 
+        if (ultimaCuenta != null) {
+            String ultimoId = ultimaCuenta.getId();
+            int ultimoNumero = Integer.parseInt(ultimoId);
+            nuevoId = String.valueOf(ultimoNumero + 1);  
         }
+
         return nuevoId;
     }
 
