@@ -61,17 +61,24 @@
             <input class="form-control" type="text" id="contrasena" name="contrasena" required
                 th:value="${usuario.contrasena}" />
 
-                <label class="col-from-label">Tipo de documento</label>
-                <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
-                    <option value="" title="Documento de identidad" th:selected="${usuario.tipoDocumento eq null}">Seleccione un tipo de documento</option>
-                    <option value="C.C." title="Cédula de ciudadanía">Cédula de ciudadanía (C.C.)</option>
-                    <option value="T.I." title="Tarjeta de identidad">Tarjeta de identidad (T.I.)</option>
-                    <option value="C.E." title="Cédula de extranjería">Cédula de extranjería (C.E.)</option>
-                    <option value="Pasaporte" title="Pasaporte">Pasaporte</option>
-                    <option value="R.C." title="Registro civil">Registro civil (R.C.)</option>
-                    <!-- Agrega más tipos de documento según sea necesario -->
-                </select>
-                
+            <label class="col-from-label">Tipo de documento</label>
+            <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                <option value="" title="Documento de identidad" th:selected="${usuario.tipoDocumento eq null}">
+                    Seleccione un tipo de documento</option>
+                <option value="C.C." title="Cédula de ciudadanía" th:selected="${usuario.tipoDocumento eq 'C.C.'}">
+                    Cédula de ciudadanía (C.C.)</option>
+                <option value="T.I." title="Tarjeta de identidad" th:selected="${usuario.tipoDocumento eq 'T.I.'}">
+                    Tarjeta de identidad (T.I.)</option>
+                <option value="C.E." title="Cédula de extranjería" th:selected="${usuario.tipoDocumento eq 'C.E.'}">
+                    Cédula de extranjería (C.E.)</option>
+                <option value="Pasaporte" title="Pasaporte" th:selected="${usuario.tipoDocumento eq 'Pasaporte'}">
+                    Pasaporte</option>
+                <option value="R.C." title="Registro civil" th:selected="${usuario.tipoDocumento eq 'R.C.'}">
+                    Registro civil (R.C.)</option>
+                <!-- Agrega más tipos de documento según sea necesario -->
+            </select>
+
+
 
             <label class="col-from-label">Numero de documento</label>
             <input class="form-control" type="text" id="numeroDocumento" name="numeroDocumento" required
@@ -98,32 +105,34 @@
             <label class="col-from-label">Ciudad</label>
             <select class="form-control" id="ciudad" name="ciudad" required>
                 <option value="" th:selected="${usuario.ciudad eq null}">Seleccione una ciudad</option>
-                <option value="Bogotá">Bogotá</option>
-                <option value="Medellín">Medellín</option>
-                <option value="Cali">Cali</option>
-                <option value="Barranquilla">Barranquilla</option>
-                <option value="Cartagena">Cartagena</option>
-                <option value="Santa Marta">Santa Marta</option>
-                <option value="Manizales">Manizales</option>
-                <option value="Pereira">Pereira</option>
-                <option value="Cúcuta">Cúcuta</option>
+                <option value="Bogotá" th:selected="${usuario.ciudad eq 'Bogotá'}">Bogotá</option>
+                <option value="Medellín" th:selected="${usuario.ciudad eq 'Medellín'}">Medellín</option>
+                <option value="Cali" th:selected="${usuario.ciudad eq 'Cali'}">Cali</option>
+                <option value="Barranquilla" th:selected="${usuario.ciudad eq 'Barranquilla'}">Barranquilla</option>
+                <option value="Cartagena" th:selected="${usuario.ciudad eq 'Cartagena'}">Cartagena</option>
+                <option value="Santa Marta" th:selected="${usuario.ciudad eq 'Santa Marta'}">Santa Marta</option>
+                <option value="Manizales" th:selected="${usuario.ciudad eq 'Manizales'}">Manizales</option>
+                <option value="Pereira" th:selected="${usuario.ciudad eq 'Pereira'}">Pereira</option>
+                <option value="Cúcuta" th:selected="${usuario.ciudad eq 'Cúcuta'}">Cúcuta</option>
                 <!-- Agrega más ciudades según sea necesario -->
             </select>
+
 
             <label class="col-from-label">Departamento</label>
             <select class="form-control" id="departamento" name="departamento" required>
                 <option value="" th:selected="${usuario.departamento eq null}">Seleccione un departamento</option>
-                <option value="Amazonas">Amazonas</option>
-                <option value="Antioquia">Antioquia</option>
-                <option value="Arauca">Arauca</option>
-                <option value="Atlántico">Atlántico</option>
-                <option value="Bolívar">Bolívar</option>
-                <option value="Boyacá">Boyacá</option>
-                <option value="Caldas">Caldas</option>
-                <option value="Caquetá">Caquetá</option>
-                <option value="Casanare">Casanare</option>
+                <option value="Amazonas" th:selected="${usuario.departamento eq 'Amazonas'}">Amazonas</option>
+                <option value="Antioquia" th:selected="${usuario.departamento eq 'Antioquia'}">Antioquia</option>
+                <option value="Arauca" th:selected="${usuario.departamento eq 'Arauca'}">Arauca</option>
+                <option value="Atlántico" th:selected="${usuario.departamento eq 'Atlántico'}">Atlántico</option>
+                <option value="Bolívar" th:selected="${usuario.departamento eq 'Bolívar'}">Bolívar</option>
+                <option value="Boyacá" th:selected="${usuario.departamento eq 'Boyacá'}">Boyacá</option>
+                <option value="Caldas" th:selected="${usuario.departamento eq 'Caldas'}">Caldas</option>
+                <option value="Caquetá" th:selected="${usuario.departamento eq 'Caquetá'}">Caquetá</option>
+                <option value="Casanare" th:selected="${usuario.departamento eq 'Casanare'}">Casanare</option>
                 <!-- Agrega más departamentos según sea necesario -->
             </select>
+
 
 
             <label class="col-from-label">Codigo postal</label>

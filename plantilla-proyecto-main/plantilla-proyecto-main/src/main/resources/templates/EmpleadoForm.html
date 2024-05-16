@@ -1,30 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Empleado Form</title>
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
 </head>
+
 <body>
-    <div th:fragment="EmpleadoForm(titulo)" class="container border border-2 w-25"> 
+    <div th:fragment="EmpleadoForm(titulo)" class="container border border-2 w-25">
         <h1 class="text-center" th:text="${titulo}"></h1>
         <form>
             <label class="col-form-label" for="id_usuario.id">User ID</label>
-            <input class="form-control" type="text" id="id_usuario.id" name="id_usuario.id" required th:value="${empleado.id_usuario.id}" />
+            <input class="form-control" type="text" id="id_usuario.id" name="id_usuario.id" required
+                th:value="${empleado.id_usuario.id}" />
 
 
             <label class="col-form-label">Rol</label>
             <select class="form-control" id="rolEmpleado" name="rolEmpleado" required>
                 <option value="" th:selected="${empleado.rolEmpleado eq null}">Seleccione un rol</option>
-                <option value="Gerente General">Gerente General</option>
-                <option value="Gerente de Oficina">Gerente de Oficina</option>
-                <option value="Cajero">Cajero</option>
+                <option value="Gerente General" th:selected="${empleado.rolEmpleado eq 'Gerente General'}">Gerente
+                    General</option>
+                <option value="Gerente de Oficina" th:selected="${empleado.rolEmpleado eq 'Gerente de Oficina'}">Gerente
+                    de Oficina</option>
+                <option value="Cajero" th:selected="${empleado.rolEmpleado eq 'Cajero'}">Cajero</option>
             </select>
+
             <br>
-            
+
             <div class="text-center">
-                <input type="submit" value="Guardar" class="btn btn-primary"/>
+                <input type="submit" value="Guardar" class="btn btn-primary" />
                 <a href="#" onclick="return goBack();" class="btn btn btn-primary"> Cancelar </a>
             </div>
             <br>
@@ -38,4 +44,5 @@
     </div>
 
 </body>
+
 </html>

@@ -10,15 +10,15 @@
 
 <body>
     <div th:fragment="PuntoDeAtencionForm(titulo)" class="container border border-2 w-25">
-        <h1 class="text-center">Ingresa Datos de la PuntoDeAtencion</h1>
+        <h1 class="text-center" th:text="${titulo}">Ingresa Datos de la PuntoDeAtencion</h1>
         <form>
 
             <label class="col-from-label">Tipo</label>
             <select class="form-control" id="tipo" name="tipo" required onchange="checkTipo()">
                 <option value="" th:selected="${puntoDeAtencion.tipo eq null}">Seleccione el tipo de punto de atención</option>
-                <option value="Atención personalizada">Atención personalizada</option>
-                <option value="Cajero automático">Cajero automático</option>
-                <option value="Digital">Digital</option>
+                <option value="Atención personalizada" th:selected="${puntoDeAtencion.tipo eq 'Atención personalizada'}">Atención personalizada</option>
+                <option value="Cajero automático" th:selected="${puntoDeAtencion.tipo eq 'Cajero automático'}">Cajero automático</option>
+                <option value="Digital" th:selected="${puntoDeAtencion.tipo eq 'Digital'}">Digital</option>
             </select>
 
             <label class="col-from-label">ID Oficina</label>

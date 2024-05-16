@@ -98,30 +98,30 @@
             <label class="col-from-label">Ciudad</label>
             <select class="form-control" id="ciudad" name="ciudad" required>
                 <option value="" th:selected="${usuario.ciudad eq null}">Seleccione una ciudad</option>
-                <option value="Bogotá">Bogotá</option>
-                <option value="Medellín">Medellín</option>
-                <option value="Cali">Cali</option>
-                <option value="Barranquilla">Barranquilla</option>
-                <option value="Cartagena">Cartagena</option>
-                <option value="Santa Marta">Santa Marta</option>
-                <option value="Manizales">Manizales</option>
-                <option value="Pereira">Pereira</option>
-                <option value="Cúcuta">Cúcuta</option>
+                <option value="Bogotá" th:selected="${usuario.departamento eq null}">Bogotá</option>
+                <option value="Medellín" th:selected="${usuario.departamento eq null}">Medellín</option>
+                <option value="Cali" th:selected="${usuario.departamento eq null}" >Cali</option>
+                <option value="Barranquilla" th:selected="${usuario.departamento eq null}">Barranquilla</option>
+                <option value="Cartagena" th:selected="${usuario.departamento eq null}">Cartagena</option>
+                <option value="Santa Marta" th:selected="${usuario.departamento eq null}">Santa Marta</option>
+                <option value="Manizales" th:selected="${usuario.departamento eq null}">Manizales</option>
+                <option value="Pereira" th:selected="${usuario.departamento eq null}">Pereira</option>
+                <option value="Cúcuta" th:selected="${usuario.departamento eq null}">Cúcuta</option>
                 <!-- Agrega más ciudades según sea necesario -->
             </select>
 
             <label class="col-from-label">Departamento</label>
             <select class="form-control" id="departamento" name="departamento" required>
                 <option value="" th:selected="${usuario.departamento eq null}">Seleccione un departamento</option>
-                <option value="Amazonas">Amazonas</option>
-                <option value="Antioquia">Antioquia</option>
-                <option value="Arauca">Arauca</option>
-                <option value="Atlántico">Atlántico</option>
-                <option value="Bolívar">Bolívar</option>
-                <option value="Boyacá">Boyacá</option>
-                <option value="Caldas">Caldas</option>
-                <option value="Caquetá">Caquetá</option>
-                <option value="Casanare">Casanare</option>
+                <option value="Amazonas" th:selected="${usuario.departamento eq null}" >Amazonas</option>
+                <option value="Antioquia"th:selected="${usuario.departamento eq null}" >Antioquia</option>
+                <option value="Arauca" th:selected="${usuario.departamento eq null}">Arauca</option>
+                <option value="Atlántico" th:selected="${usuario.departamento eq null}">Atlántico</option>
+                <option value="Bolívar" th:selected="${usuario.departamento eq null}">Bolívar</option>
+                <option value="Boyacá" th:selected="${usuario.departamento eq null}">Boyacá</option>
+                <option value="Caldas" th:selected="${usuario.departamento eq null}">Caldas</option>
+                <option value="Caquetá" th:selected="${usuario.departamento eq null}">Caquetá</option>
+                <option value="Casanare" th:selected="${usuario.departamento eq null}">Casanare</option>
                 <!-- Agrega más departamentos según sea necesario -->
             </select>
 
