@@ -60,7 +60,7 @@
                         <a th:href="@{usuarios/{id}/edit(id=${usuario.id})}">
                             Editar
                         </a> <br>
-                        <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}" onclick="return confirmDelete()">
+                        <a th:href="@{usuarios/{id}/delete(id=${usuario.id})}" onclick="return confirm('¿Estas seguro en borrar este oficina?')">
                             Eliminar
                         </a>
                     </td>
