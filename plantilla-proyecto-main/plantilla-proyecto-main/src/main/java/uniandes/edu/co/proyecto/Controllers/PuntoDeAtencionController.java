@@ -1,14 +1,10 @@
 package uniandes.edu.co.proyecto.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Modelos.PuntoDeAtencion;
-import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.OficinaRepository;
 import uniandes.edu.co.proyecto.Repositorio.PuntoDeAtencionRepository;
 import org.springframework.stereotype.Controller;
@@ -23,22 +19,18 @@ public class PuntoDeAtencionController {
     @Autowired
     private OficinaRepository oficinaRepository;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        PuntoDeAtencion ultimaCuenta = mongoOperations.findOne(query, PuntoDeAtencion.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            PuntoDeAtencion oficina = puntoDeAtencionRepository.findPuntoDeAtencionById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
 

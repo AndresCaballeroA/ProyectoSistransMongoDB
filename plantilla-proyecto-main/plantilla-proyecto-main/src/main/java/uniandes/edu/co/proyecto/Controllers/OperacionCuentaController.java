@@ -7,9 +7,6 @@ import java.util.Collection;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 
 import uniandes.edu.co.proyecto.Modelos.Cuenta;
@@ -38,38 +35,33 @@ public class OperacionCuentaController {
     // @Autowired
     // private OperacionCuentaService operacionCuentaService;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        OperacionCuenta ultimaCuenta = mongoOperations.findOne(query, OperacionCuenta.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            OperacionCuenta oficina = operacionCuentaRepository.findOperacionCuentaById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
 
     public String generarNuevoId1() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        Operacion ultimaCuenta = mongoOperations.findOne(query, Operacion.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            Operacion oficina = operacionRepository.findOperacionById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
 

@@ -1,15 +1,11 @@
 package uniandes.edu.co.proyecto.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.stereotype.Controller;
 import uniandes.edu.co.proyecto.Modelos.Cliente;
-import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.ClienteRepository;
@@ -33,22 +29,18 @@ public class ClienteController {
     @Autowired
     private OficinaRepository oficinaRepository;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        Cliente ultimaCuenta = mongoOperations.findOne(query, Cliente.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            Cliente oficina = clienteRepository.findClienteById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
     

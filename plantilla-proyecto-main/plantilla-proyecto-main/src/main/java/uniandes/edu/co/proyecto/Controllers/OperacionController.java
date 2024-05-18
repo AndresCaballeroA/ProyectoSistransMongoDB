@@ -4,13 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Operacion;
 import uniandes.edu.co.proyecto.Repositorio.OperacionRepository;
 import org.springframework.stereotype.Controller;
@@ -21,22 +17,18 @@ public class OperacionController {
     @Autowired
     private OperacionRepository operacionRepository;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        Operacion ultimaCuenta = mongoOperations.findOne(query, Operacion.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            Operacion oficina = operacionRepository.findOperacionById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
 

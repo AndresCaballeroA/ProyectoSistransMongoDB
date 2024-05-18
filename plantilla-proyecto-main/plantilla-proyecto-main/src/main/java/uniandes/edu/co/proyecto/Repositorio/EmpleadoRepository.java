@@ -4,6 +4,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.mongodb.repository.Query;
 import uniandes.edu.co.proyecto.Modelos.Empleado;
+
 import java.util.List;
 
 public interface EmpleadoRepository extends MongoRepository<Empleado, String> {

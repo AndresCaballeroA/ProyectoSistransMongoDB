@@ -1,16 +1,12 @@
 package uniandes.edu.co.proyecto.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import uniandes.edu.co.proyecto.Modelos.Operacion;
 import uniandes.edu.co.proyecto.Modelos.Usuario;
 import uniandes.edu.co.proyecto.Repositorio.UsuarioRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.domain.Sort;
 
 
 @Controller
@@ -19,22 +15,18 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        Usuario ultimaCuenta = mongoOperations.findOne(query, Usuario.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            Usuario oficina = usuarioRepository.findUsuarioById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
 

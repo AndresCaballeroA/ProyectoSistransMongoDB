@@ -1,13 +1,9 @@
 package uniandes.edu.co.proyecto.Controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoOperations;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import uniandes.edu.co.proyecto.Modelos.Cuenta;
 import uniandes.edu.co.proyecto.Modelos.Empleado;
 import uniandes.edu.co.proyecto.Modelos.Oficina;
 import uniandes.edu.co.proyecto.Repositorio.EmpleadoRepository;
@@ -23,24 +19,21 @@ public class OficinaController {
     @Autowired
     private EmpleadoRepository empleadoRepository;
 
-    @Autowired
-    private MongoOperations mongoOperations;
-
     public String generarNuevoId() {
+        int i = 1;
+        String nuevoId;
         
-        Query query = new Query().with(Sort.by(Sort.Order.desc("id")));
-        
-        Oficina ultimaCuenta = mongoOperations.findOne(query, Oficina.class);
-
-        String nuevoId = "1"; 
-        if (ultimaCuenta != null) {
-            String ultimoId = ultimaCuenta.getId();
-            int ultimoNumero = Integer.parseInt(ultimoId);
-            nuevoId = String.valueOf(ultimoNumero + 1);  
-        }
-
+        while (true) {
+            nuevoId = String.valueOf(i);
+            Oficina oficina = oficinaRepository.findOficinaById(nuevoId);
+            if (oficina == null) {
+                break;
+            }
+            i++;
+        }        
         return nuevoId;
     }
+    
 
     @GetMapping("/oficinas")
     public String oficinas(Model model) {
@@ -59,6 +52,7 @@ public class OficinaController {
     @PostMapping("/oficinas/new/save")
     public String oficinaGuardar(@ModelAttribute Oficina oficina) {
         String nuevoId = generarNuevoId();
+        System.out.println(nuevoId);
         oficina.setId(nuevoId);
         if (empleadoRepository.findEmpleadoById(oficina.getGerente().getId()) != null) {
             oficina.setGerente(empleadoRepository.findEmpleadoById(oficina.getGerente().getId()));
